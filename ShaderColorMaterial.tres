@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://y6hoaugtf64c"]
+
+[ext_resource type="Shader" uid="uid://dbbl6cpe1k5st" path="res://ShaderColor.gdshader" id="1_v0vp6"]
+
+[sub_resource type="Gradient" id="Gradient_js7pq"]
+offsets = PackedFloat32Array(0, 0.25, 0.5, 0.75, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.556928, 0.947997, 0.564923, 1, 9.62615e-08, 0.538931, 0.238533, 1, 0.654026, 0.377506, 0.0600708, 1, 0.929742, 0.962538, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_eu7l1"]
+gradient = SubResource("Gradient_js7pq")
+
+[sub_resource type="Gradient" id="Gradient_p1v5b"]
+offsets = PackedFloat32Array(0, 0.25, 0.5, 0.75, 1)
+colors = PackedColorArray(0.122729, 0.187298, 0.217149, 1, 0.0530989, 0.0913101, 0.143129, 1, 0.062918, 0.10279, 0.0731168, 1, 0.197838, 0.164265, 0.110151, 1, 0.121569, 0.188235, 0.215686, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wygdx"]
+gradient = SubResource("Gradient_p1v5b")
+
+[resource]
+shader = ExtResource("1_v0vp6")
+shader_parameter/GRADIENT_A = SubResource("GradientTexture1D_eu7l1")
+shader_parameter/GRADIENT_B = SubResource("GradientTexture1D_wygdx")
+shader_parameter/value = 0.0
+shader_parameter/bw_threshold = 0.5
+shader_parameter/alpha_eps = 0.001

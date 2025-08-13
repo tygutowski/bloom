@@ -1,17 +1,11 @@
-[gd_scene load_steps=23 format=4 uid="uid://rttk28h3tgj6"]
+[gd_scene load_steps=15 format=4 uid="uid://rttk28h3tgj6"]
 
 [ext_resource type="TileSet" uid="uid://xkuh6aff7h7c" path="res://tile_set.tres" id="1_c6gwx"]
 [ext_resource type="Material" uid="uid://y6hoaugtf64c" path="res://ShaderColorMaterial.tres" id="1_js7pq"]
 [ext_resource type="Script" uid="uid://djhelkkxxou0f" path="res://SeasonManager.gd" id="1_p1v5b"]
 [ext_resource type="Texture2D" uid="uid://cenprenufq70t" path="res://1-Bit Platformer Pack/Tilemap/monochrome_tilemap_transparent.png" id="2_2dftf"]
 [ext_resource type="Script" uid="uid://v5vehyr0lrox" path="res://Player.gd" id="2_bcbcq"]
-[ext_resource type="Texture2D" uid="uid://blh7rf4h6vudu" path="res://inventory.png" id="3_fv4w7"]
 [ext_resource type="FontFile" uid="uid://cc1qlx4wh4n8e" path="res://PeaberryMono.ttf" id="5_eu7l1"]
-[ext_resource type="Texture2D" uid="uid://bo6n8c4g0q1q3" path="res://tilemap.png" id="5_kva58"]
-[ext_resource type="Texture2D" uid="uid://clv6g5wwvupv4" path="res://tree-tileset.png" id="7_wygdx"]
-[ext_resource type="Script" uid="uid://djpmqlem7jjlf" path="res://Tree.gd" id="8_bah7m"]
-[ext_resource type="PackedScene" uid="uid://dcvdo75w4f6gk" path="res://Flower.tscn" id="11_kva58"]
-[ext_resource type="Script" uid="uid://dhvh7o06vlbf" path="res://flower.gd" id="12_f5c0m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2dftf"]
 size = Vector2(15, 15)
@@ -108,155 +102,21 @@ _data = {
 &"run": SubResource("Animation_bcbcq")
 }
 
-[sub_resource type="Curve" id="Curve_p1v5b"]
-_limits = [1.0, 2.0, 100.0, 250.0]
-bake_resolution = 3
-_data = [Vector2(100, 1.53933), 8.2271, 0.00307116, 0, 1, Vector2(250, 2), 0.00307116, 7.24906, 1, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_wygdx"]
-curve = SubResource("Curve_p1v5b")
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eu7l1"]
 particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(200, 1, 1)
 direction = Vector3(0.225, 1, 0)
-spread = 5.0
-initial_velocity_min = 200.0
-initial_velocity_max = 250.0
+spread = 2.5
+initial_velocity_min = 197.37
+initial_velocity_max = 245.37
 gravity = Vector3(0, 0, 0)
-scale_over_velocity_curve = SubResource("CurveTexture_wygdx")
 
 [node name="Node2D" type="Node2D"]
-process_priority = 1
-process_physics_priority = 1
 script = ExtResource("1_p1v5b")
 shader = ExtResource("1_js7pq")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-texture_filter = 1
-offset_left = 72.0
-offset_right = 120.0
-offset_bottom = 32.0
-texture = ExtResource("3_fv4w7")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/TextureRect"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 72.0
-offset_bottom = 24.0
-theme_override_constants/separation = 8
-
-[node name="InventorySlot" type="TextureRect" parent="CanvasLayer/TextureRect/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = ExtResource("7_wygdx")
-expand_mode = 1
-
-[node name="InventorySlot2" type="TextureRect" parent="CanvasLayer/TextureRect/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = ExtResource("5_kva58")
-expand_mode = 1
-
-[node name="InventorySlot3" type="TextureRect" parent="CanvasLayer/TextureRect/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = ExtResource("5_kva58")
-expand_mode = 1
-
-[node name="RealTimeLabel" type="Label" parent="CanvasLayer"]
-texture_filter = 1
-offset_left = 160.0
-offset_right = 270.0
-offset_bottom = 23.0
-theme_override_fonts/font = ExtResource("5_eu7l1")
-theme_override_font_sizes/font_size = 16
-text = "00:00:00"
-uppercase = true
-
-[node name="GameTimeLabel" type="Label" parent="CanvasLayer"]
-texture_filter = 1
-offset_left = 160.0
-offset_top = 16.0
-offset_right = 270.0
-offset_bottom = 39.0
-theme_override_fonts/font = ExtResource("5_eu7l1")
-theme_override_font_sizes/font_size = 16
-text = "00:00:00"
-uppercase = true
-
-[node name="Month" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -8.0
-offset_top = 16.0
-offset_right = 32.0
-offset_bottom = 56.0
-
-[node name="WinterLabel" type="Label" parent="CanvasLayer/Month"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 16.0
-offset_top = -8.0
-offset_right = 103.0
-offset_bottom = 15.0
-theme_override_fonts/font = ExtResource("5_eu7l1")
-theme_override_font_sizes/font_size = 16
-text = "WINTER"
-uppercase = true
-
-[node name="AutumnLabel" type="Label" parent="CanvasLayer/Month"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 8.0
-offset_top = 16.0
-offset_right = 95.0
-offset_bottom = 39.0
-rotation = 1.5708
-theme_override_fonts/font = ExtResource("5_eu7l1")
-theme_override_font_sizes/font_size = 16
-text = "AUTUMN"
-uppercase = true
-
-[node name="SpringLabel" type="Label" parent="CanvasLayer/Month"]
-texture_filter = 1
-layout_mode = 0
-offset_left = -8.0
-offset_top = -16.0
-offset_right = 79.0
-offset_bottom = 7.0
-rotation = 4.71239
-theme_override_fonts/font = ExtResource("5_eu7l1")
-theme_override_font_sizes/font_size = 16
-text = "SPRING"
-uppercase = true
-
-[node name="SummerLabel" type="Label" parent="CanvasLayer/Month"]
-texture_filter = 1
-layout_mode = 0
-offset_left = -16.0
-offset_top = 8.0
-offset_right = 71.0
-offset_bottom = 31.0
-rotation = 3.14159
-theme_override_fonts/font = ExtResource("5_eu7l1")
-theme_override_font_sizes/font_size = 16
-text = "SUMMER"
-uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = ExtResource("1_js7pq")
@@ -273,13 +133,16 @@ tile_set = ExtResource("1_c6gwx")
 
 [node name="Foreground" type="TileMapLayer" parent="."]
 texture_filter = 1
-tile_map_data = PackedByteArray("AAAAAAoAAAAFAAQAAAABAAoAAAAFAAQAAAACAAoAAAAFAAQAAAADAAoAAAAFAAQAAAAEAAoAAAAHAAUAAAAFAAoAAAAIAAUAAAAGAAoAAAAIAAUAAAAHAAoAAAAJAAQAAAAIAAsAAAADAAQAAAAJAAsAAAAFAAQAAAAKAAsAAAAFAAQAAAALAAsAAAAFAAQAAAAMAAsAAAAFAAQAAAANAAsAAAAFAAQAAAAOAAsAAAAFAAQAAAAEAAkAAAAHAAQAAAAGAAkAAAAJAAQAAAAHAAsAAAAJAAYAAAAEAAsAAAAHAAYAAAAFAAsAAAAIAAYAAAAGAAsAAAAIAAYAAAAFAAkAAAAIAAQAAAA=")
+tile_map_data = PackedByteArray("AAAAAAoAAAAFAAQAAAABAAkAAAAHAAQAAAABAAoAAAAFAAQAAAACAAgAAAAHAAQAAAACAAkAAAAIAAUAAAACAAoAAAAFAAQAAAADAAgAAAAIAAQAAAADAAkAAAAIAAUAAAADAAoAAAAFAAQAAAAEAAgAAAAJAAQAAAAEAAkAAAAJAAUAAAAEAAoAAAADAAQAAAAFAAoAAAAFAAQAAAAGAAoAAAAFAAQAAAAHAAoAAAAGAAQAAAAJAAoAAAAJAAIAAAAKAAoAAAAJAAIAAAAKAAkAAAAJAAIAAAAIAAsAAAADAAQAAAAJAAsAAAAFAAQAAAAKAAsAAAAFAAQAAAALAAsAAAAFAAQAAAAMAAsAAAAFAAQAAAANAAsAAAAFAAQAAAAOAAsAAAAFAAQAAAA=")
+tile_set = ExtResource("1_c6gwx")
+
+[node name="Information" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAAAAoAAAAFAAQAAAABAAkAAAAHAAQAAAABAAoAAAAFAAQAAAACAAgAAAAHAAQAAAACAAkAAAAIAAUAAAACAAoAAAAFAAQAAAADAAgAAAAIAAQAAAADAAkAAAAIAAUAAAADAAoAAAAFAAQAAAAEAAgAAAAJAAQAAAAEAAkAAAAJAAUAAAAEAAoAAAADAAQAAAAFAAoAAAAFAAQAAAAGAAoAAAAFAAQAAAAHAAoAAAAGAAQAAAAJAAoAAAAJAAIAAAAKAAoAAAAJAAIAAAAKAAkAAAAJAAIAAAAIAAsAAAADAAQAAAAJAAsAAAAFAAQAAAAKAAsAAAAFAAQAAAALAAsAAAAFAAQAAAAMAAsAAAAFAAQAAAANAAsAAAAFAAQAAAAOAAsAAAAFAAQAAAA=")
 tile_set = ExtResource("1_c6gwx")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-process_priority = -1
-process_physics_priority = -1
-position = Vector2(104, 128)
+position = Vector2(112, 152)
 script = ExtResource("2_bcbcq")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
@@ -298,21 +161,21 @@ libraries = {
 &"": SubResource("AnimationLibrary_bah7m")
 }
 
+[node name="SeasonLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = 8.0
+offset_top = 200.0
+offset_right = 95.0
+offset_bottom = 223.0
+theme_override_fonts/font = ExtResource("5_eu7l1")
+theme_override_font_sizes/font_size = 16
+text = "WINTER"
+uppercase = true
+
 [node name="SnowParticles" type="GPUParticles2D" parent="."]
 position = Vector2(120, 0)
 amount = 200
-amount_ratio = 0.3936
 lifetime = 3.0
 preprocess = 3.0
 randomness = 0.1
 process_material = SubResource("ParticleProcessMaterial_eu7l1")
-
-[node name="Sprite2D" type="Sprite2D" parent="." groups=["tree"]]
-texture_filter = 1
-position = Vector2(192, 128)
-texture = ExtResource("7_wygdx")
-hframes = 3
-script = ExtResource("8_bah7m")
-
-[node name="Flower" parent="." instance=ExtResource("11_kva58")]
-script = ExtResource("12_f5c0m")

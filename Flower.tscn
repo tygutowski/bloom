@@ -1,0 +1,144 @@
+[gd_scene load_steps=9 format=3 uid="uid://dcvdo75w4f6gk"]
+
+[ext_resource type="Texture2D" uid="uid://bc7cqvpxs3clq" path="res://flower_bud.png" id="1_6iefh"]
+[ext_resource type="Texture2D" uid="uid://dfth6pbrh0i8g" path="res://flower_stalk.png" id="2_trkl5"]
+
+[sub_resource type="Animation" id="Animation_b2ar6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlowerBud:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_f5c0m"]
+resource_name = "bloom"
+length = 15.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlowerBud:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6, 9, 12, 15),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(15),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ee7l0"]
+resource_name = "die"
+length = 6.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlowerBud:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_gn8l5"]
+resource_name = "grow"
+length = 20.0
+step = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlowerBud:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 10, 15, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b2ar6"]
+_data = {
+&"RESET": SubResource("Animation_b2ar6"),
+&"bloom": SubResource("Animation_f5c0m"),
+&"die": SubResource("Animation_ee7l0"),
+&"grow": SubResource("Animation_gn8l5")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ee7l0"]
+size = Vector2(48, 8)
+
+[node name="Flower" type="Node2D" groups=["flower"]]
+
+[node name="FlowerBud" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(56, 128)
+texture = ExtResource("1_6iefh")
+hframes = 7
+vframes = 2
+
+[node name="FlowerStalk" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(56, 152)
+texture = ExtResource("2_trkl5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_b2ar6")
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(56, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_ee7l0")
+one_way_collision = true

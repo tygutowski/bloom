@@ -6,7 +6,7 @@ uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_nearest;
 uniform sampler2D GRADIENT_A : filter_linear; // e.g., green → yellow
 uniform sampler2D GRADIENT_B : filter_linear; // e.g., blue  → orange
 
-uniform float value_01 : hint_range(0.0, 1.0, 0.001) = 0.0; // you change this live
+uniform float value : hint_range(0.0, 1.0, 0.001) = 0.0; // you change this live
 uniform float bw_threshold : hint_range(0.0, 1.0) = 0.5;    // split point between A/B
 uniform float alpha_eps = 0.001;
 
@@ -23,8 +23,8 @@ void fragment() {
     bool use_a = lum >= bw_threshold;
 
     // Sample both gradients at the SAME position (your dial)
-    vec4 col_a = texture(GRADIENT_A, vec2(value_01, 0.5));
-    vec4 col_b = texture(GRADIENT_B, vec2(value_01, 0.5));
+    vec4 col_a = texture(GRADIENT_A, vec2(value, 0.5));
+    vec4 col_b = texture(GRADIENT_B, vec2(value, 0.5));
 
     COLOR = use_a ? col_a : col_b;
 }
