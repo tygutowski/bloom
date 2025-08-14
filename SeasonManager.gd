@@ -1,11 +1,11 @@
 extends Node2D
 
-const YEAR_SECONDS: float = 240.0
+const YEAR_SECONDS: float = 120.0
 const SPIN_SPEED: float = 12.0 # rad/s (tweak)
 
 var timeskip_acceleration: float = 1.01
 var timeskip_max_speed: float = 1000.0
-var year_time: float = 0.0
+var year_time: float = 15.0
 var _dial_tween: Tween = null
 @export var shader: ShaderMaterial
 @onready var dial: CanvasItem = $"CanvasLayer/Month"
@@ -13,12 +13,37 @@ var _season_idx: int = 0
 var spinning: bool = false
 var gametime: float = 0.0
 var realgametime: float = 0.0
+
+func _ready() -> void:
+	$CanvasLayer2/TextureRect2.visible = true
+	$CanvasLayer2/TextureButton.visible = true
+	$CanvasLayer2/TextureButton2.visible = true
+	$CanvasLayer2/TextureRect.visible = true
+	$CanvasLayer.visible = false
+	$Game.visible = false
+	get_node("Game").process_mode = Node.PROCESS_MODE_PAUSABLE
+	get_node("CanvasLayer").process_mode = Node.PROCESS_MODE_PAUSABLE
+	get_tree().paused = true
+	set_spring(0)
+
 func _process(delta: float) -> void:
 	if spinning:
 		dial.rotation += SPIN_SPEED * delta
 	elif not (_dial_tween and _dial_tween.is_running()):
 		dial.rotation = _target_angle_for_index(_season_idx)
 
+
+
+func get_season() -> String:
+	if _season_idx == 0:
+		return "winter"
+	if _season_idx == 1:
+		return "spring"
+	if _season_idx == 2:
+		return "summer"
+	if _season_idx == 3:
+		return "autumn"
+	return "error"
 func _physics_process(delta: float) -> void:
 	gametime += delta
 	
@@ -39,7 +64,7 @@ func _physics_process(delta: float) -> void:
 	var realtime_string = "%02d:%02d:%02d:%02d" % [realhours, realminutes, realseconds, realmilliseconds]
 	$CanvasLayer/RealTimeLabel.text = str(realtime_string)
 	
-	var player: CharacterBody2D = get_node("CharacterBody2D")
+	var player: CharacterBody2D = get_node("Game/CharacterBody2D")
 	var skipping_time: bool = false
 	if player.direction == 0 and player.is_on_floor():
 		skipping_time = Input.is_action_pressed("skip")
@@ -65,6 +90,7 @@ func timeskip(speeding_up: bool) -> void:
 		Engine.time_scale = 1.0
 
 const SEASON_LEN: float = 0.25
+
 func season_progress(time: float) -> float:
 	var t: float = fposmod(time, 1.0)
 	var frac: float = fposmod(4.0 * t + 0.5, 1.0)
@@ -103,6 +129,7 @@ func _settle_dial_to_current_season() -> void:
 
 func set_season(time: float) -> void:
 	var progress: float = season_progress(time)
+
 	var idx: int = _season_index_from_time(time)
 	if idx != _season_idx:
 		_season_idx = idx
@@ -120,26 +147,81 @@ func set_season(time: float) -> void:
 		set_autumn(progress)
 
 func set_winter(progress: float) -> void:
-	$SnowParticles.amount_ratio = progress - 0.3
+	get_node("Game/Water").ice = true
+	for snow_particles in get_tree().get_nodes_in_group("snow_particles"):
+		snow_particles.amount_ratio = progress - 0.2
+	for rain_particles in get_tree().get_nodes_in_group("rain_particles"):
+		rain_particles.amount_ratio = 0
+	for gourd in get_tree().get_nodes_in_group("gourd"):
+		gourd.set_winter()
 	for tree in get_tree().get_nodes_in_group("tree"):
 		tree.set_winter()
 	for flower in get_tree().get_nodes_in_group("flower"):
 		flower.set_winter()
 
 func set_spring(progress: float) -> void:
+	get_node("Game/Water").ice = false
+	for snow_particles in get_tree().get_nodes_in_group("snow_particles"):
+		snow_particles.amount_ratio = 0
+	for rain_particles in get_tree().get_nodes_in_group("rain_particles"):
+		rain_particles.amount_ratio = 0
+	for gourd in get_tree().get_nodes_in_group("gourd"):
+		gourd.set_spring()
 	for tree in get_tree().get_nodes_in_group("tree"):
 		tree.set_spring()
 	for flower in get_tree().get_nodes_in_group("flower"):
 		flower.set_spring()
 
 func set_summer(progress: float) -> void:
+	get_node("Game/Water").ice = false
+	for snow_particles in get_tree().get_nodes_in_group("snow_particles"):
+		snow_particles.amount_ratio = 0
+	for rain_particles in get_tree().get_nodes_in_group("rain_particles"):
+		rain_particles.amount_ratio = progress - 0.2
+	for gourd in get_tree().get_nodes_in_group("gourd"):
+		gourd.set_summer()
 	for tree in get_tree().get_nodes_in_group("tree"):
 		tree.set_summer()
 	for flower in get_tree().get_nodes_in_group("flower"):
 		flower.set_summer()
 
 func set_autumn(progress: float) -> void:
+	get_node("Game/Water").ice = false
+	for snow_particles in get_tree().get_nodes_in_group("snow_particles"):
+		snow_particles.amount_ratio = 0
+	for rain_particles in get_tree().get_nodes_in_group("rain_particles"):
+		rain_particles.amount_ratio = 0
+	for gourd in get_tree().get_nodes_in_group("gourd"):
+		gourd.set_autumn()
 	for tree in get_tree().get_nodes_in_group("tree"):
+		tree.get_node("LeafParticles").amount_ratio = progress
 		tree.set_autumn()
 	for flower in get_tree().get_nodes_in_group("flower"):
 		flower.set_autumn()
+
+
+func _on_texture_button_pressed() -> void:
+	get_tree().paused = false
+	$CanvasLayer2/TextureRect2.visible = false
+	$CanvasLayer2/TextureButton.visible = false
+	$CanvasLayer2/TextureButton2.visible = false
+	var timer = Timer.new()
+	add_child(timer)
+	timer.start(120)
+	timer.timeout.connect(startgame.bind(timer))
+	
+
+func startgame(timer) -> void:
+	timer.queue_free()
+	$CanvasLayer2/TextureRect.visible = false
+	$CanvasLayer.visible = true
+	$Game.visible = true
+	Engine.time_scale = 1
+	var year_time: float = 15.0
+	for plant in get_tree().get_nodes_in_group("animatedplants"):
+		plant.speed_scale = randf_range(0.8, 1.2)
+		plant.play()
+	for tree in get_tree().get_nodes_in_group("tree"):
+		tree.get_node("LeafParticles").amount_ratio =  0
+	realgametime = 0
+	gametime = 0

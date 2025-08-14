@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8i8slo3sktpd"]
+
+[ext_resource type="Texture2D" uid="uid://dbwonntxga5uq" path="res://splash-export.png" id="1_i26rj"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_i26rj")

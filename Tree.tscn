@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc3bt3ue5mnqw"]
+
+[ext_resource type="Texture2D" uid="uid://clv6g5wwvupv4" path="res://tree-tileset.png" id="1_72j6q"]
+[ext_resource type="Script" uid="uid://djpmqlem7jjlf" path="res://Tree.gd" id="2_fxwtr"]
+[ext_resource type="Texture2D" uid="uid://t4c3kgq72n0" path="res://leaf_particle.png" id="3_rsxdo"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sjtuv"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 50.0
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(1, 1, 0)
+spread = 2.0
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 90.0
+gravity = Vector3(0, 0, 0)
+
+[node name="Tree" type="Sprite2D" groups=["tree"]]
+texture_filter = 1
+texture = ExtResource("1_72j6q")
+hframes = 3
+script = ExtResource("2_fxwtr")
+
+[node name="LeafParticles" type="GPUParticles2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -8)
+amount = 10
+amount_ratio = 0.0
+texture = ExtResource("3_rsxdo")
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_sjtuv")

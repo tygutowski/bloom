@@ -1,31 +1,22 @@
-[gd_scene load_steps=54 format=4 uid="uid://rttk28h3tgj6"]
+[gd_scene load_steps=44 format=4 uid="uid://rttk28h3tgj6"]
 
 [ext_resource type="TileSet" uid="uid://xkuh6aff7h7c" path="res://tile_set.tres" id="1_c6gwx"]
 [ext_resource type="Material" uid="uid://y6hoaugtf64c" path="res://ShaderColorMaterial.tres" id="1_js7pq"]
 [ext_resource type="Script" uid="uid://djhelkkxxou0f" path="res://SeasonManager.gd" id="1_p1v5b"]
+[ext_resource type="Texture2D" uid="uid://cenprenufq70t" path="res://1-Bit Platformer Pack/Tilemap/monochrome_tilemap_transparent.png" id="2_2dftf"]
 [ext_resource type="Script" uid="uid://v5vehyr0lrox" path="res://Player.gd" id="2_bcbcq"]
-[ext_resource type="Texture2D" uid="uid://cro3pm4xb73ie" path="res://splash.png" id="3_cvq6i"]
 [ext_resource type="Texture2D" uid="uid://blh7rf4h6vudu" path="res://inventory.png" id="3_fv4w7"]
-[ext_resource type="Texture2D" uid="uid://bxad0orofx6b" path="res://1-Bit Platformer Pack/Tilemap/infopage.png" id="3_ydbc3"]
-[ext_resource type="Texture2D" uid="uid://b2jxps2fpwy8f" path="res://playbutton.png" id="4_0to5b"]
 [ext_resource type="Texture2D" uid="uid://b2bf13kx0ao1j" path="res://boot.png" id="4_1fphk"]
-[ext_resource type="Texture2D" uid="uid://b3h074yd2757w" path="res://playbutton_inverted.png" id="5_5j71u"]
 [ext_resource type="FontFile" uid="uid://cc1qlx4wh4n8e" path="res://PeaberryMono.ttf" id="5_eu7l1"]
 [ext_resource type="Texture2D" uid="uid://bo6n8c4g0q1q3" path="res://tilemap.png" id="5_kva58"]
-[ext_resource type="Texture2D" uid="uid://bmxdu5giymgy3" path="res://infobutton_inverted.png" id="6_jyqkj"]
-[ext_resource type="Texture2D" uid="uid://bp4xkexhgg0st" path="res://infobutton.png" id="7_ydbc3"]
 [ext_resource type="Texture2D" uid="uid://dig463fm0wpt6" path="res://water_tileset.png" id="8_ee7l0"]
 [ext_resource type="Script" uid="uid://qss15wbasg5q" path="res://Water.gd" id="9_gn8l5"]
-[ext_resource type="Texture2D" uid="uid://c53qeeye25ooe" path="res://1-Bit Platformer Pack/Tilemap/player_spritesheet.png" id="11_1fphk"]
 [ext_resource type="Texture2D" uid="uid://bc7cqvpxs3clq" path="res://flower_bud.png" id="11_f5c0m"]
 [ext_resource type="Texture2D" uid="uid://dfth6pbrh0i8g" path="res://flower_stalk.png" id="12_b2ar6"]
 [ext_resource type="Script" uid="uid://dhvh7o06vlbf" path="res://flower.gd" id="12_f5c0m"]
 [ext_resource type="PackedScene" uid="uid://bc3bt3ue5mnqw" path="res://Tree.tscn" id="15_1fphk"]
 [ext_resource type="Script" uid="uid://dg5dq88ex7j06" path="res://Camera.gd" id="16_6w02q"]
-[ext_resource type="PackedScene" uid="uid://dvf0xm8g8a6v1" path="res://Gourd.tscn" id="16_sjtuv"]
 [ext_resource type="Texture2D" uid="uid://dgfj1hg68hj13" path="res://seaweed.png" id="18_sjtuv"]
-[ext_resource type="PackedScene" uid="uid://b7rwu8xaxxme" path="res://BootUpgrade.tscn" id="25_aj1ai"]
-[ext_resource type="PackedScene" uid="uid://dcvdo75w4f6gk" path="res://Flower.tscn" id="26_d7dfr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gn8l5"]
 texture = ExtResource("8_ee7l0")
@@ -40,7 +31,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_gn8l5")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2dftf"]
-size = Vector2(8, 12)
+size = Vector2(15, 15)
 
 [sub_resource type="Animation" id="Animation_wygdx"]
 length = 0.001
@@ -57,6 +48,23 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_p1v5b"]
+resource_name = "die"
+length = 0.0833417
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
 [sub_resource type="Animation" id="Animation_eu7l1"]
 resource_name = "fall"
 length = 0.0833417
@@ -71,30 +79,13 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [9]
+"values": [5]
 }
 
 [sub_resource type="Animation" id="Animation_js7pq"]
 resource_name = "idle"
-loop_mode = 1
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_sjtuv"]
-resource_name = "jump"
-length = 0.0833
-step = 0.25
+length = 0.0833417
+step = 0.0833333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -105,7 +96,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [8]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_bcbcq"]
@@ -122,40 +113,22 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [4, 5, 6, 7]
-}
-
-[sub_resource type="Animation" id="Animation_cvq6i"]
-resource_name = "wait"
-loop_mode = 1
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [10]
+"values": [1, 2, 3, 4]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bah7m"]
 _data = {
 &"RESET": SubResource("Animation_wygdx"),
+&"die": SubResource("Animation_p1v5b"),
 &"fall": SubResource("Animation_eu7l1"),
 &"idle": SubResource("Animation_js7pq"),
-&"jump": SubResource("Animation_sjtuv"),
-&"run": SubResource("Animation_bcbcq"),
-&"wait": SubResource("Animation_cvq6i")
+&"run": SubResource("Animation_bcbcq")
 }
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eu7l1"]
 particle_flag_disable_z = true
 emission_shape = 3
-emission_box_extents = Vector3(300, 1, 1)
+emission_box_extents = Vector3(200, 1, 1)
 direction = Vector3(0.225, 1, 0)
 spread = 5.0
 initial_velocity_min = 20.0
@@ -336,48 +309,10 @@ animations = [{
 }]
 
 [node name="Node2D" type="Node2D" groups=["seasonmanager"]]
-process_mode = 3
 process_priority = 1
 process_physics_priority = 1
 script = ExtResource("1_p1v5b")
 shader = ExtResource("1_js7pq")
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer2"]
-visible = false
-offset_right = 240.0
-offset_bottom = 216.0
-texture = ExtResource("3_ydbc3")
-
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer2"]
-visible = false
-texture_filter = 1
-offset_right = 240.0
-offset_bottom = 216.0
-texture = ExtResource("3_cvq6i")
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer2"]
-visible = false
-texture_filter = 1
-offset_left = 8.0
-offset_top = 163.0
-offset_right = 56.0
-offset_bottom = 183.0
-texture_normal = ExtResource("5_5j71u")
-texture_pressed = ExtResource("4_0to5b")
-texture_hover = ExtResource("4_0to5b")
-
-[node name="TextureButton2" type="TextureButton" parent="CanvasLayer2"]
-visible = false
-texture_filter = 1
-offset_left = 8.0
-offset_top = 185.0
-offset_right = 56.0
-offset_bottom = 205.0
-texture_normal = ExtResource("6_jyqkj")
-texture_pressed = ExtResource("7_ydbc3")
-texture_hover = ExtResource("7_ydbc3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -504,9 +439,7 @@ theme_override_font_sizes/font_size = 16
 text = "SUMMER"
 uppercase = true
 
-[node name="CanvasLayer3" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer3"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = ExtResource("1_js7pq")
 anchors_preset = 15
 anchor_right = 1.0
@@ -517,438 +450,426 @@ offset_right = 576.0
 offset_bottom = 264.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
-[node name="Game" type="Node2D" parent="."]
-
-[node name="Background" type="TileMapLayer" parent="Game"]
+[node name="Background" type="TileMapLayer" parent="."]
 texture_filter = 1
 tile_set = ExtResource("1_c6gwx")
 
-[node name="Water" type="TileMapLayer" parent="Game"]
-tile_map_data = PackedByteArray("AAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAAUAAsAAAAAAAAAAAAVAAsAAAAAAAAAAAAWAAsAAAAAAAAAAAAXAAsAAAAAAAAAAAAYAAsAAAAAAAAAAAAZAAsAAAAAAAAAAAAlAAwAAAAAAAAAAAAmAAwAAAAAAAAAAAAnAAwAAAAAAAAAAAAoAAwAAAAAAAAAAAA=")
+[node name="Water" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAAUAAsAAAAAAAAAAAAVAAsAAAAAAAAAAAAWAAsAAAAAAAAAAAAXAAsAAAAAAAAAAAAYAAsAAAAAAAAAAAAZAAsAAAAAAAAAAAAlAAsAAAAAAAAAAAAmAAsAAAAAAAAAAAAnAAsAAAAAAAAAAAAoAAsAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_6w02q")
 script = ExtResource("9_gn8l5")
 
-[node name="Foreground" type="TileMapLayer" parent="Game"]
+[node name="Foreground" type="TileMapLayer" parent="."]
 texture_filter = 1
-tile_map_data = PackedByteArray("AAAAAAoAAAAJAAUAAAABAAoAAAALAAUAAAAAAAkAAAAJAAUAAAAAAAgAAAAJAAUAAAAAAAcAAAAJAAUAAAAAAAYAAAAJAAUAAAADAAoAAAALAAUAAAACAAoAAAALAAUAAAAEAAoAAAALAAUAAAAAAAUAAAAJAAQAAAD//wUAAAAIAAQAAAD+/wUAAAAIAAQAAAD9/wUAAAAPABIAAAD8/wUAAAAIAAUAAAD7/wUAAAAPABIAAAD6/wUAAAAIAAUAAAD5/wUAAAAPABIAAAD4/wUAAAAIAAUAAAD3/wUAAAAIAAUAAAD2/wUAAAAIAAUAAAD1/wUAAAAIAAUAAAD0/wUAAAAIAAUAAAD1/wYAAAAIAAUAAAD2/wYAAAAPABIAAAD3/wYAAAAPABIAAAD4/wYAAAAIAAUAAAD5/wYAAAAPABIAAAD6/wYAAAAIAAUAAAD7/wYAAAAPABIAAAD8/wYAAAAPABIAAAD9/wYAAAAIAAUAAAD+/wYAAAAPABIAAAD//wYAAAAIAAUAAAD7/wQAAAAPABIAAAD6/wQAAAAPABIAAAD5/wQAAAAIAAUAAAD5/wMAAAAPABIAAAD4/wMAAAAPABIAAAD4/wIAAAAPABIAAAD4/wEAAAAIAAUAAAD3/wEAAAAIAAUAAAD3/wAAAAAPABIAAAD2/wAAAAAPABIAAAD2////AAAIAAUAAAD1////AAAPABIAAAD0//7/AAAIAAQAAADz//7/AAAIAAQAAADy//7/AAAIAAQAAADx//7/AAAIAAQAAADx////AAAIAAUAAADx/wAAAAAPABIAAADx/wEAAAAPABIAAADx/wIAAAAIAAUAAADx/wMAAAAPABIAAADx/wQAAAAIAAUAAADx/wUAAAAIAAUAAADx/wYAAAAPABIAAADy/wYAAAAIAAUAAADz/wYAAAAIAAUAAAD0/wYAAAAIAAUAAADz/wQAAAAIAAUAAADz/wMAAAAPABIAAADz/wIAAAAPABIAAADz/wEAAAAPABIAAADz/wAAAAAIAAUAAADy/wAAAAAIAAUAAADy////AAAPABIAAADy/wMAAAAIAAUAAADy/wQAAAAPABIAAADy/wUAAAAIAAUAAADz/wUAAAAIAAUAAADz////AAAPABIAAAD0////AAAPABIAAAD1/wAAAAAPABIAAAD1/wEAAAAPABIAAAD2/wEAAAAIAAUAAAD3/wIAAAAPABIAAAD4/wQAAAAIAAUAAAD3/wMAAAAIAAUAAAD2/wMAAAAPABIAAAD2/wIAAAAPABIAAAD3/wQAAAAPABIAAAD1/wIAAAAPABIAAAD0/wEAAAAIAAUAAAD0/wAAAAAPABIAAAD2/wQAAAAPABIAAAD1/wMAAAAPABIAAAD0/wMAAAAIAAUAAAD0/wIAAAAPABIAAAD1/wQAAAAPABIAAAD0/wQAAAAPABIAAADy/wIAAAAIAAUAAADy/wEAAAAIAAUAAAAmAPr/AAAKAAYAAAAmAPn/AAAKAAYAAAAmAPj/AAAKAAYAAAAmAPf/AAAKAAYAAAAHAAsAAAALAAUAAAAGAAsAAAALAAUAAAAFAAoAAAAMAAUAAAAKAAkAAAAKAAUAAAALAAkAAAALAAUAAAAJAAsAAAALAAUAAAAIAAsAAAALAAUAAAARAAsAAAAMAAUAAAASAAwAAAALAAUAAAATAAwAAAAMAAUAAAAUAA0AAAALAAUAAAAVAA0AAAALAAUAAAAWAA0AAAALAAUAAAAXAA0AAAALAAUAAAAYAA0AAAALAAUAAAAZAA0AAAALAAUAAAAaAAsAAAAKAAUAAAAaAAwAAAAKAAYAAAAbAAsAAAALAAUAAAAcAAsAAAALAAUAAAAdAAsAAAALAAUAAAAeAAsAAAALAAUAAAAiAAcAAAAKAAUAAAAjAAkAAAAMAAYAAAAjAAoAAAARAAoAAAAkAAcAAAAMAAUAAAAkAAgAAAALAAcAAAAlAAgAAAAMAAgAAAAmAPv/AAAKAAYAAAAmAPz/AAAKAAYAAAAmAP3/AAAKAAYAAAAmAP7/AAAKAAYAAAAmAP//AAAKAAcAAAAnAAAAAAAKAAYAAAAnAAEAAAAKAAcAAAAnAAkAAAANAAgAAAAoAAIAAAAKAAcAAAApAAIAAAALAAcAAAAqAAMAAAAKAAYAAAAqAAQAAAAKAAcAAAArAAUAAAAKAAYAAAArAAYAAAAKAAYAAAArAAcAAAAKAAYAAAArAAgAAAAKAAYAAAArAAkAAAAKAAYAAAAMAAkAAAALAAUAAAANAAkAAAAMAAUAAAAQAAoAAAAMAAUAAAAPAAoAAAALAAUAAAAKAAoAAAAKAAYAAAAOAAoAAAALAAUAAAAgAAoAAAALAAUAAAAfAAoAAAAKAAUAAAAhAAgAAAAKAAUAAAAhAAkAAAAKAAYAAAAjAAcAAAALAAUAAAD9/wQAAAAJAAQAAAD8/wIAAAAJAAQAAAD6/wEAAAAJAAQAAAD4////AAAJAAQAAAD3//7/AAAJAAQAAAD8/wQAAAAIAAUAAAD7/wMAAAAPABIAAAD7/wIAAAAIAAQAAAD6/wIAAAAIAAUAAAD6/wMAAAAPABIAAAD5/wIAAAAPABIAAAD4/wAAAAAJAAUAAAD3////AAAIAAUAAAD5/wEAAAAIAAQAAAD2//7/AAAIAAQAAAD1//7/AAAIAAQAAAD8/wMAAAAJAAUAAAD//wkAAAAIAAUAAAD9/wgAAAAIAAUAAAD7/wkAAAAIAAUAAAD3/wgAAAAIAAUAAAD1/wkAAAAIAAUAAADx/wcAAAAPABIAAADx/wgAAAAIAAUAAADx/wkAAAAPABIAAADx/woAAAAPABIAAADy/woAAAAPABIAAADz/woAAAAIAAUAAAD0/woAAAAPABIAAAD1/woAAAAIAAUAAAD2/woAAAAIAAUAAAD3/woAAAAPABIAAAD4/woAAAAIAAUAAAD5/woAAAAIAAUAAAD6/woAAAAIAAUAAAD7/woAAAAIAAUAAAD8/woAAAAIAAUAAAD9/woAAAAIAAUAAAD+/woAAAAIAAUAAAD//woAAAAPABIAAAD+/wkAAAAPABIAAAD9/wkAAAAIAAUAAAD8/wkAAAAIAAUAAAD+/wgAAAAIAAUAAAD//wgAAAAPABIAAAD//wcAAAAPABIAAAD+/wcAAAAPABIAAAD9/wcAAAAPABIAAAD8/wcAAAAPABIAAAD7/wcAAAAIAAUAAAD6/wcAAAAPABIAAAD5/wcAAAAIAAUAAAD4/wcAAAAPABIAAAD3/wcAAAAPABIAAAD2/wcAAAAIAAUAAAD1/wcAAAAIAAUAAAD0/wcAAAAIAAUAAADz/wcAAAAIAAUAAADy/wcAAAAIAAUAAADy/wgAAAAPABIAAADy/wkAAAAIAAUAAADz/wkAAAAIAAUAAAD0/wkAAAAIAAUAAAD0/wgAAAAIAAUAAADz/wgAAAAIAAUAAAD1/wgAAAAIAAUAAAD2/wgAAAAPABIAAAD2/wkAAAAIAAUAAAD3/wkAAAAIAAUAAAD4/wkAAAAIAAUAAAD5/wkAAAAIAAUAAAD6/wkAAAAPABIAAAD6/wgAAAAIAAUAAAD5/wgAAAAPABIAAAD4/wgAAAAIAAUAAAD7/wgAAAAPABIAAAD8/wgAAAAPABIAAAAAAAsAAAAJAAUAAAAAAAwAAAAJAAUAAAAAAA0AAAAJAAUAAAD//w0AAAAIAAUAAAD+/wwAAAAIAAUAAAD9/wwAAAAIAAUAAAD8/wwAAAAIAAUAAAD8/wsAAAAIAAUAAAD7/wsAAAAIAAUAAAD6/wsAAAAIAAUAAAD5/wsAAAAIAAUAAAD4/wsAAAAIAAUAAAD3/wwAAAAIAAUAAAD2/wwAAAAIAAUAAAD1/wwAAAAIAAUAAAD1/w0AAAAIAAUAAAD0/wwAAAAIAAUAAADz/wwAAAAIAAUAAAD0/wsAAAAIAAUAAAD1/wsAAAAIAAUAAADz/wsAAAAIAAUAAADy/wsAAAAIAAUAAAD2/wsAAAAIAAUAAAD3/wsAAAAIAAUAAAD5/wwAAAAIAAUAAAD6/wwAAAAIAAUAAAD9/wsAAAAIAAUAAAD7/w0AAAAIAAUAAAD6/w0AAAAIAAUAAAD8/w0AAAAIAAUAAAD9/w0AAAAIAAUAAAD+/w0AAAAIAAUAAAD5/w0AAAAIAAUAAAD4/w0AAAAIAAUAAAD3/w0AAAAIAAUAAAD2/w0AAAAIAAUAAAD0/w0AAAAIAAUAAADz/w0AAAAIAAUAAADy/w0AAAAIAAUAAADy/wwAAAAIAAUAAADx/wwAAAAIAAUAAAD4/wwAAAAIAAUAAAD7/wwAAAAIAAUAAAD+/wsAAAAIAAUAAAD//wsAAAAIAAUAAAD//wwAAAAIAAUAAADx/wsAAAAIAAUAAADx/w0AAAAIAAUAAAApAAwAAAAPAAoAAAApAA0AAAAPAAoAAAApAA4AAAAPAAoAAAApAA8AAAAPAAoAAAAkAA0AAAARAAoAAAAkAAwAAAARAAkAAAAjAAsAAAARAAoAAAAcABoAAAAPAAkAAAAYABoAAAARAAkAAAAXABoAAAAQAAkAAAAWABoAAAAQAAkAAAAVABoAAAAQAAkAAAAUABkAAAARAAoAAAAUABgAAAARAAoAAAAkAA8AAAAQAAsAAAAlAA4AAAAQAAkAAAAlAA8AAAARAAsAAAAoABAAAAAPAAkAAAAnABEAAAAPAAkAAAAjABQAAAARAAoAAAAjABMAAAARAAkAAAAkABUAAAARAAwAAAAjAA8AAAAQAAsAAAAiABMAAAAQAAkAAAAhABIAAAARAAoAAAAhABEAAAARAAoAAAAhABAAAAARAAoAAAAiAA8AAAAQAAsAAAArAAoAAAAPAAoAAAAmABgAAAAPAAoAAAAZABcAAAAQAAsAAAAaABcAAAAQAAsAAAAbABcAAAAQAAsAAAAdABcAAAAQAAsAAAAeABcAAAAQAAsAAAAfABcAAAAQAAsAAAAhABcAAAAQAAsAAAAYABcAAAAQAAsAAAAXABcAAAAQAAsAAAAVABcAAAAQAAsAAAAWABcAAAAQAAsAAAAcABcAAAAQAAsAAAAgABcAAAAQAAsAAAAqAAsAAAAQAAkAAAApAAsAAAAPAAkAAAAnABMAAAAPAAoAAAAnABQAAAAPAAoAAAAnABUAAAAPAAoAAAAnABYAAAAPAAoAAAAmABcAAAAPAAkAAAAlABkAAAAPAAkAAAAmABIAAAAPAAwAAAAYABsAAAARAAoAAAAYABwAAAARAAoAAAAYAB0AAAARAAoAAAAdABoAAAAQAAkAAAAeABoAAAARAAkAAAAcABsAAAAPAAoAAAAcABwAAAAPAAoAAAAcAB0AAAAPAAoAAAAeABsAAAARAAoAAAAeABwAAAARAAoAAAAeAB0AAAARAAoAAAAiABoAAAAPAAkAAAAiABsAAAAPAAoAAAAiABwAAAAPAAoAAAAiAB0AAAAPAAoAAAAjABoAAAAQAAkAAAAkABoAAAAQAAkAAAAiABcAAAARAAsAAAAjABUAAAAQAAsAAAAiABYAAAARAAoAAAAmAA4AAAARAAwAAAA=")
+tile_map_data = PackedByteArray("AAAAAAoAAAAJAAYAAAABAAoAAAALAAUAAAAAAAkAAAAJAAUAAAAAAAgAAAAJAAUAAAAAAAcAAAAJAAUAAAAAAAYAAAAJAAUAAAADAAoAAAALAAUAAAACAAoAAAALAAUAAAAEAAoAAAALAAUAAAAAAAUAAAAJAAQAAAD//wUAAAAIAAUAAAD+/wUAAAAIAAUAAAD9/wUAAAAIAAUAAAD8/wUAAAAIAAUAAAD7/wUAAAAIAAUAAAD6/wUAAAAIAAUAAAD5/wUAAAAIAAUAAAD4/wUAAAAIAAUAAAD3/wUAAAAIAAUAAAD2/wUAAAAIAAUAAAD1/wUAAAAIAAUAAAD0/wUAAAAIAAUAAAD1/wYAAAAIAAUAAAD2/wYAAAAIAAUAAAD3/wYAAAAIAAUAAAD4/wYAAAAIAAUAAAD5/wYAAAAIAAUAAAD6/wYAAAAIAAUAAAD7/wYAAAAIAAUAAAD8/wYAAAAIAAUAAAD9/wYAAAAIAAUAAAD+/wYAAAAIAAUAAAD//wYAAAAIAAUAAAD7/wQAAAAIAAUAAAD6/wQAAAAIAAUAAAD5/wQAAAAIAAUAAAD5/wMAAAAIAAUAAAD4/wMAAAAIAAUAAAD4/wIAAAAIAAUAAAD4/wEAAAAIAAUAAAD3/wEAAAAIAAUAAAD3/wAAAAAIAAUAAAD2/wAAAAAIAAUAAAD2////AAAIAAUAAAD1////AAAIAAUAAAD0//7/AAAIAAUAAADz//7/AAAIAAUAAADy//7/AAAIAAUAAADx//7/AAAIAAUAAADx////AAAIAAUAAADx/wAAAAAIAAUAAADx/wEAAAAIAAUAAADx/wIAAAAIAAUAAADx/wMAAAAIAAUAAADx/wQAAAAIAAUAAADx/wUAAAAIAAUAAADx/wYAAAAIAAUAAADy/wYAAAAIAAUAAADz/wYAAAAIAAUAAAD0/wYAAAAIAAUAAADz/wQAAAAIAAUAAADz/wMAAAAIAAUAAADz/wIAAAAIAAUAAADz/wEAAAAIAAUAAADz/wAAAAAIAAUAAADy/wAAAAAIAAUAAADy////AAAIAAUAAADy/wMAAAAIAAUAAADy/wQAAAAIAAUAAADy/wUAAAAIAAUAAADz/wUAAAAIAAUAAADz////AAAIAAUAAAD0////AAAIAAUAAAD1/wAAAAAIAAUAAAD1/wEAAAAIAAUAAAD2/wEAAAAIAAUAAAD3/wIAAAAIAAUAAAD4/wQAAAAIAAUAAAD3/wMAAAAIAAUAAAD2/wMAAAAIAAUAAAD2/wIAAAAIAAUAAAD3/wQAAAAIAAUAAAD1/wIAAAAIAAUAAAD0/wEAAAAIAAUAAAD0/wAAAAAIAAUAAAD2/wQAAAAIAAUAAAD1/wMAAAAIAAUAAAD0/wMAAAAIAAUAAAD0/wIAAAAIAAUAAAD1/wQAAAAIAAUAAAD0/wQAAAAIAAUAAADy/wIAAAAIAAUAAADy/wEAAAAIAAUAAAAmAPr/AAAKAAYAAAAmAPn/AAAKAAYAAAAmAPj/AAAKAAYAAAAmAPf/AAAKAAYAAAAHAAsAAAALAAUAAAAGAAsAAAALAAUAAAAFAAoAAAAMAAUAAAAKAAkAAAAKAAUAAAALAAkAAAALAAUAAAAJAAsAAAALAAUAAAAIAAsAAAALAAUAAAARAAsAAAAMAAUAAAASAAwAAAALAAUAAAATAAwAAAAMAAUAAAAUAA0AAAALAAUAAAAVAA0AAAALAAUAAAAVAA8AAAAMAAUAAAAWAA0AAAALAAUAAAAWABAAAAAMAAUAAAAXAA0AAAALAAUAAAAXABEAAAAMAAUAAAAYAA0AAAALAAUAAAAYABIAAAALAAUAAAAZAA0AAAALAAUAAAAZABIAAAALAAUAAAAaAAsAAAAKAAUAAAAaAAwAAAAKAAYAAAAaABIAAAAMAAUAAAAbAAsAAAALAAUAAAAbAA4AAAALAAcAAAAbABMAAAALAAUAAAAcAAsAAAALAAUAAAAcAA4AAAALAAcAAAAcABMAAAALAAUAAAAdAAsAAAALAAUAAAAdAA4AAAALAAcAAAAdABMAAAALAAUAAAAeAAsAAAALAAUAAAAeAA4AAAALAAcAAAAeABMAAAALAAUAAAAfAAsAAAALAAUAAAAfAA4AAAALAAcAAAAfABMAAAALAAUAAAAgAAsAAAALAAUAAAAgAA4AAAALAAcAAAAgABMAAAALAAUAAAAhAAoAAAAKAAUAAAAhAA4AAAALAAcAAAAhABMAAAALAAUAAAAiAAYAAAAKAAUAAAAiAAcAAAAKAAYAAAAiAAgAAAAKAAYAAAAiAAkAAAAKAAYAAAAiAA4AAAAMAAcAAAAiABMAAAALAAUAAAAjAAYAAAAMAAUAAAAjAAkAAAAMAAYAAAAjAAoAAAAMAAYAAAAjAA0AAAALAAcAAAAjABMAAAALAAUAAAAkAAcAAAAMAAUAAAAkAAgAAAALAAcAAAAkAAsAAAAMAAUAAAAkAA0AAAALAAcAAAAkABIAAAAKAAUAAAAlAAgAAAAMAAgAAAAlAAwAAAAMAAUAAAAlAA0AAAALAAcAAAAlABEAAAAKAAUAAAAmAPv/AAAKAAYAAAAmAPz/AAAKAAYAAAAmAP3/AAAKAAYAAAAmAP7/AAAKAAYAAAAmAP//AAAKAAcAAAAmAA0AAAAMAAgAAAAmABEAAAALAAUAAAAnAAAAAAAKAAYAAAAnAAEAAAAKAAcAAAAnAAkAAAANAAgAAAAnABAAAAAKAAUAAAAoAAIAAAAKAAcAAAAoAA8AAAAKAAUAAAApAAIAAAALAAcAAAApAAsAAAAKAAgAAAApAA4AAAAKAAUAAAAqAAMAAAAKAAYAAAAqAAQAAAAKAAcAAAAqAAoAAAAKAAUAAAAqAAwAAAAKAAYAAAAqAA0AAAAKAAYAAAArAAUAAAAKAAYAAAArAAYAAAAKAAYAAAArAAcAAAAKAAYAAAArAAgAAAAKAAYAAAArAAkAAAAKAAYAAAAMAAkAAAALAAUAAAANAAkAAAAMAAUAAAAQAAoAAAAMAAUAAAAPAAoAAAALAAUAAAAOAAoAAAALAAUAAAAKAAoAAAAKAAYAAAA=")
 tile_set = ExtResource("1_c6gwx")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Game"]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 process_priority = -1
 process_physics_priority = -1
-position = Vector2(56, 152)
+position = Vector2(64, 152)
 script = ExtResource("2_bcbcq")
 
-[node name="Sprite2D" type="Sprite2D" parent="Game/CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 texture_filter = 1
-texture = ExtResource("11_1fphk")
-hframes = 11
+texture = ExtResource("2_2dftf")
+hframes = 7
+region_enabled = true
 region_rect = Rect2(0, 255, 118, 16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/CharacterBody2D"]
-position = Vector2(0, 2)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_2dftf")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/CharacterBody2D"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D"]
 libraries = {
 &"": SubResource("AnimationLibrary_bah7m")
 }
 
-[node name="SnowParticles" type="GPUParticles2D" parent="Game/CharacterBody2D" groups=["snow_particles"]]
-position = Vector2(0, -184)
+[node name="SnowParticles" type="GPUParticles2D" parent="CharacterBody2D" groups=["snow_particles"]]
+position = Vector2(0, -176)
 amount = 500
-amount_ratio = 0.0
+amount_ratio = 0.6689
 lifetime = 10.0
+preprocess = 5.0
 randomness = 0.1
-visibility_rect = Rect2(-200, -400, 600, 600)
+visibility_rect = Rect2(0, 0, 1000, 1000)
 process_material = SubResource("ParticleProcessMaterial_eu7l1")
 
-[node name="RainParticles" type="GPUParticles2D" parent="Game/CharacterBody2D" groups=["rain_particles"]]
-position = Vector2(0, -184)
+[node name="RainParticles" type="GPUParticles2D" parent="CharacterBody2D" groups=["rain_particles"]]
+position = Vector2(0, -176)
 amount = 2000
 amount_ratio = 0.0
 lifetime = 10.0
+preprocess = 5.0
 randomness = 0.1
-visibility_rect = Rect2(-200, -400, 600, 600)
+visibility_rect = Rect2(-100, -100, 1000, 1000)
 process_material = SubResource("ParticleProcessMaterial_1fphk")
 
-[node name="Node2D" type="Node2D" parent="Game"]
+[node name="Node2D" type="Node2D" parent="."]
 position = Vector2(600, 248)
 
-[node name="RoomSauna" type="Node2D" parent="Game"]
+[node name="RoomSauna" type="Node2D" parent="."]
 position = Vector2(240, 0)
 
-[node name="Area2D" type="Area2D" parent="Game/RoomSauna" groups=["level_area"]]
+[node name="Area2D" type="Area2D" parent="RoomSauna" groups=["level_area"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomSauna/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomSauna/Area2D"]
 position = Vector2(360, 112)
 shape = SubResource("RectangleShape2D_6w02q")
 
-[node name="Flower7" type="Node2D" parent="Game/RoomSauna" groups=["flower"]]
+[node name="Flower7" type="Node2D" parent="RoomSauna" groups=["flower"]]
 position = Vector2(184, 88)
 script = ExtResource("12_f5c0m")
 
-[node name="FlowerBud" type="Sprite2D" parent="Game/RoomSauna/Flower7"]
+[node name="FlowerBud" type="Sprite2D" parent="RoomSauna/Flower7"]
 texture_filter = 1
 position = Vector2(0, -8)
 texture = ExtResource("11_f5c0m")
 hframes = 7
 vframes = 2
 
-[node name="FlowerStalk" type="Sprite2D" parent="Game/RoomSauna/Flower7"]
+[node name="FlowerStalk" type="Sprite2D" parent="RoomSauna/Flower7"]
 texture_filter = 1
 position = Vector2(0, 16)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk2" type="Sprite2D" parent="Game/RoomSauna/Flower7"]
+[node name="FlowerStalk2" type="Sprite2D" parent="RoomSauna/Flower7"]
 texture_filter = 1
 position = Vector2(0, 32)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk3" type="Sprite2D" parent="Game/RoomSauna/Flower7"]
+[node name="FlowerStalk3" type="Sprite2D" parent="RoomSauna/Flower7"]
 texture_filter = 1
 position = Vector2(0, 48)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk4" type="Sprite2D" parent="Game/RoomSauna/Flower7"]
+[node name="FlowerStalk4" type="Sprite2D" parent="RoomSauna/Flower7"]
 texture_filter = 1
 position = Vector2(0, 64)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk5" type="Sprite2D" parent="Game/RoomSauna/Flower7"]
+[node name="FlowerStalk5" type="Sprite2D" parent="RoomSauna/Flower7"]
 texture_filter = 1
 position = Vector2(0, 80)
 texture = ExtResource("12_b2ar6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/RoomSauna/Flower7"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomSauna/Flower7"]
 libraries = {
 &"": SubResource("AnimationLibrary_b2ar6")
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Game/RoomSauna/Flower7"]
+[node name="StaticBody2D" type="StaticBody2D" parent="RoomSauna/Flower7"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomSauna/Flower7/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomSauna/Flower7/StaticBody2D"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_ee7l0")
 one_way_collision = true
 
-[node name="Flower5" type="Node2D" parent="Game/RoomSauna" groups=["flower"]]
+[node name="Flower5" type="Node2D" parent="RoomSauna" groups=["flower"]]
 position = Vector2(240, 72)
 script = ExtResource("12_f5c0m")
 
-[node name="FlowerBud" type="Sprite2D" parent="Game/RoomSauna/Flower5"]
+[node name="FlowerBud" type="Sprite2D" parent="RoomSauna/Flower5"]
 texture_filter = 1
 position = Vector2(0, -8)
 texture = ExtResource("11_f5c0m")
 hframes = 7
 vframes = 2
 
-[node name="FlowerStalk" type="Sprite2D" parent="Game/RoomSauna/Flower5"]
+[node name="FlowerStalk" type="Sprite2D" parent="RoomSauna/Flower5"]
 texture_filter = 1
 position = Vector2(0, 16)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk2" type="Sprite2D" parent="Game/RoomSauna/Flower5"]
+[node name="FlowerStalk2" type="Sprite2D" parent="RoomSauna/Flower5"]
 texture_filter = 1
 position = Vector2(-192, -112)
 texture = ExtResource("12_b2ar6")
 offset = Vector2(192, 144)
 
-[node name="FlowerStalk3" type="Sprite2D" parent="Game/RoomSauna/Flower5"]
+[node name="FlowerStalk3" type="Sprite2D" parent="RoomSauna/Flower5"]
 texture_filter = 1
 position = Vector2(0, 48)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk4" type="Sprite2D" parent="Game/RoomSauna/Flower5"]
+[node name="FlowerStalk4" type="Sprite2D" parent="RoomSauna/Flower5"]
 texture_filter = 1
 position = Vector2(-192, -80)
 texture = ExtResource("12_b2ar6")
 offset = Vector2(192, 144)
 
-[node name="FlowerStalk5" type="Sprite2D" parent="Game/RoomSauna/Flower5"]
+[node name="FlowerStalk5" type="Sprite2D" parent="RoomSauna/Flower5"]
 texture_filter = 1
 position = Vector2(0, 80)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk6" type="Sprite2D" parent="Game/RoomSauna/Flower5"]
+[node name="FlowerStalk6" type="Sprite2D" parent="RoomSauna/Flower5"]
 texture_filter = 1
 position = Vector2(-192, -48)
 texture = ExtResource("12_b2ar6")
 offset = Vector2(192, 144)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/RoomSauna/Flower5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomSauna/Flower5"]
 libraries = {
 &"": SubResource("AnimationLibrary_b2ar6")
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Game/RoomSauna/Flower5"]
+[node name="StaticBody2D" type="StaticBody2D" parent="RoomSauna/Flower5"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomSauna/Flower5/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomSauna/Flower5/StaticBody2D"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_ee7l0")
 one_way_collision = true
 
-[node name="Flower6" type="Node2D" parent="Game/RoomSauna" groups=["flower"]]
-position = Vector2(264, 88)
+[node name="Flower6" type="Node2D" parent="RoomSauna" groups=["flower"]]
+position = Vector2(280, 88)
 script = ExtResource("12_f5c0m")
 
-[node name="FlowerBud" type="Sprite2D" parent="Game/RoomSauna/Flower6"]
+[node name="FlowerBud" type="Sprite2D" parent="RoomSauna/Flower6"]
 texture_filter = 1
 position = Vector2(0, -8)
 texture = ExtResource("11_f5c0m")
 hframes = 7
 vframes = 2
 
-[node name="FlowerStalk" type="Sprite2D" parent="Game/RoomSauna/Flower6"]
+[node name="FlowerStalk" type="Sprite2D" parent="RoomSauna/Flower6"]
 texture_filter = 1
 position = Vector2(0, 16)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk2" type="Sprite2D" parent="Game/RoomSauna/Flower6"]
+[node name="FlowerStalk2" type="Sprite2D" parent="RoomSauna/Flower6"]
 texture_filter = 1
 position = Vector2(0, 32)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk3" type="Sprite2D" parent="Game/RoomSauna/Flower6"]
+[node name="FlowerStalk3" type="Sprite2D" parent="RoomSauna/Flower6"]
 texture_filter = 1
 position = Vector2(0, 48)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk4" type="Sprite2D" parent="Game/RoomSauna/Flower6"]
+[node name="FlowerStalk4" type="Sprite2D" parent="RoomSauna/Flower6"]
 texture_filter = 1
 position = Vector2(0, 64)
 texture = ExtResource("12_b2ar6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/RoomSauna/Flower6"]
+[node name="FlowerStalk5" type="Sprite2D" parent="RoomSauna/Flower6"]
+texture_filter = 1
+position = Vector2(0, 80)
+texture = ExtResource("12_b2ar6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomSauna/Flower6"]
 libraries = {
 &"": SubResource("AnimationLibrary_b2ar6")
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Game/RoomSauna/Flower6"]
+[node name="StaticBody2D" type="StaticBody2D" parent="RoomSauna/Flower6"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomSauna/Flower6/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomSauna/Flower6/StaticBody2D"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_ee7l0")
 one_way_collision = true
 
-[node name="RoomMountain" type="Node2D" parent="Game"]
+[node name="RoomMountain" type="Node2D" parent="."]
 position = Vector2(-240, -112)
 
-[node name="Area2D" type="Area2D" parent="Game/RoomMountain" groups=["level_area"]]
+[node name="Area2D" type="Area2D" parent="RoomMountain" groups=["level_area"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomMountain/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomMountain/Area2D"]
 position = Vector2(120, 108)
 shape = SubResource("RectangleShape2D_6w02q")
 
-[node name="RoomLake" type="Node2D" parent="Game"]
+[node name="RoomLake" type="Node2D" parent="."]
 position = Vector2(240, 0)
 
-[node name="Area2D" type="Area2D" parent="Game/RoomLake" groups=["level_area"]]
+[node name="Area2D" type="Area2D" parent="RoomLake" groups=["level_area"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomLake/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomLake/Area2D"]
 position = Vector2(120, 108)
 shape = SubResource("RectangleShape2D_6w02q")
 
-[node name="RoomUnderWater1" type="Node2D" parent="Game"]
+[node name="RoomUnderWater1" type="Node2D" parent="."]
 position = Vector2(240, 216)
 
-[node name="Area2D" type="Area2D" parent="Game/RoomUnderWater1" groups=["level_area"]]
+[node name="Area2D" type="Area2D" parent="RoomUnderWater1" groups=["level_area"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomUnderWater1/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomUnderWater1/Area2D"]
 position = Vector2(120, 108)
 shape = SubResource("RectangleShape2D_6w02q")
 
-[node name="RoomUnderWater2" type="Node2D" parent="Game"]
+[node name="RoomUnderWater2" type="Node2D" parent="."]
 position = Vector2(240, 216)
 
-[node name="Area2D" type="Area2D" parent="Game/RoomUnderWater2" groups=["level_area"]]
+[node name="Area2D" type="Area2D" parent="RoomUnderWater2" groups=["level_area"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomUnderWater2/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomUnderWater2/Area2D"]
 position = Vector2(360, 112)
 shape = SubResource("RectangleShape2D_6w02q")
 
-[node name="RoomSpawn" type="Node2D" parent="Game"]
+[node name="RoomSpawn" type="Node2D" parent="."]
 
-[node name="Area2D" type="Area2D" parent="Game/RoomSpawn" groups=["level_area"]]
+[node name="Area2D" type="Area2D" parent="RoomSpawn" groups=["level_area"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomSpawn/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomSpawn/Area2D"]
 position = Vector2(120, 108)
 shape = SubResource("RectangleShape2D_1fphk")
 
-[node name="Flower" type="Node2D" parent="Game/RoomSpawn" groups=["flower"]]
+[node name="Flower" type="Node2D" parent="RoomSpawn" groups=["flower"]]
 position = Vector2(16, 0)
 script = ExtResource("12_f5c0m")
 
-[node name="FlowerBud" type="Sprite2D" parent="Game/RoomSpawn/Flower"]
+[node name="FlowerBud" type="Sprite2D" parent="RoomSpawn/Flower"]
 texture_filter = 1
 position = Vector2(56, 128)
 texture = ExtResource("11_f5c0m")
 hframes = 7
 vframes = 2
 
-[node name="FlowerStalk" type="Sprite2D" parent="Game/RoomSpawn/Flower"]
+[node name="FlowerStalk" type="Sprite2D" parent="RoomSpawn/Flower"]
 texture_filter = 1
 position = Vector2(56, 152)
 texture = ExtResource("12_b2ar6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/RoomSpawn/Flower"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomSpawn/Flower"]
 libraries = {
 &"": SubResource("AnimationLibrary_b2ar6")
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Game/RoomSpawn/Flower"]
+[node name="StaticBody2D" type="StaticBody2D" parent="RoomSpawn/Flower"]
 position = Vector2(56, 136)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomSpawn/Flower/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomSpawn/Flower/StaticBody2D"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_ee7l0")
 one_way_collision = true
 
-[node name="Flower2" type="Node2D" parent="Game/RoomSpawn" groups=["flower"]]
+[node name="Flower2" type="Node2D" parent="RoomSpawn" groups=["flower"]]
 position = Vector2(32, -32)
 script = ExtResource("12_f5c0m")
 
-[node name="FlowerBud" type="Sprite2D" parent="Game/RoomSpawn/Flower2"]
+[node name="FlowerBud" type="Sprite2D" parent="RoomSpawn/Flower2"]
 texture_filter = 1
 position = Vector2(56, 144)
 texture = ExtResource("11_f5c0m")
 hframes = 7
 vframes = 2
 
-[node name="FlowerStalk2" type="Sprite2D" parent="Game/RoomSpawn/Flower2"]
+[node name="FlowerStalk2" type="Sprite2D" parent="RoomSpawn/Flower2"]
 texture_filter = 1
 position = Vector2(56, 168)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk3" type="Sprite2D" parent="Game/RoomSpawn/Flower2"]
+[node name="FlowerStalk3" type="Sprite2D" parent="RoomSpawn/Flower2"]
 texture_filter = 1
 position = Vector2(56, 184)
 texture = ExtResource("12_b2ar6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/RoomSpawn/Flower2"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomSpawn/Flower2"]
 libraries = {
 &"": SubResource("AnimationLibrary_b2ar6")
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Game/RoomSpawn/Flower2"]
+[node name="StaticBody2D" type="StaticBody2D" parent="RoomSpawn/Flower2"]
 position = Vector2(56, 152)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomSpawn/Flower2/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomSpawn/Flower2/StaticBody2D"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_b2ar6")
 one_way_collision = true
 
-[node name="Flower4" type="Node2D" parent="Game/RoomSpawn" groups=["flower"]]
+[node name="Flower4" type="Node2D" parent="RoomSpawn" groups=["flower"]]
 position = Vector2(72, 0)
 script = ExtResource("12_f5c0m")
 
-[node name="FlowerBud" type="Sprite2D" parent="Game/RoomSpawn/Flower4"]
+[node name="FlowerBud" type="Sprite2D" parent="RoomSpawn/Flower4"]
 texture_filter = 1
 position = Vector2(56, 144)
 texture = ExtResource("11_f5c0m")
 hframes = 7
 vframes = 2
 
-[node name="FlowerStalk2" type="Sprite2D" parent="Game/RoomSpawn/Flower4"]
+[node name="FlowerStalk2" type="Sprite2D" parent="RoomSpawn/Flower4"]
 texture_filter = 1
 position = Vector2(56, 168)
 texture = ExtResource("12_b2ar6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/RoomSpawn/Flower4"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomSpawn/Flower4"]
 libraries = {
 &"": SubResource("AnimationLibrary_b2ar6")
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Game/RoomSpawn/Flower4"]
+[node name="StaticBody2D" type="StaticBody2D" parent="RoomSpawn/Flower4"]
 position = Vector2(56, 152)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomSpawn/Flower4/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomSpawn/Flower4/StaticBody2D"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_b2ar6")
 one_way_collision = true
 
-[node name="Flower3" type="Node2D" parent="Game/RoomSpawn" groups=["flower"]]
+[node name="Flower3" type="Node2D" parent="RoomSpawn" groups=["flower"]]
 position = Vector2(-16, -80)
 script = ExtResource("12_f5c0m")
 
-[node name="FlowerBud" type="Sprite2D" parent="Game/RoomSpawn/Flower3"]
+[node name="FlowerBud" type="Sprite2D" parent="RoomSpawn/Flower3"]
 texture_filter = 1
 position = Vector2(56, 160)
 texture = ExtResource("11_f5c0m")
 hframes = 7
 vframes = 2
 
-[node name="FlowerStalk3" type="Sprite2D" parent="Game/RoomSpawn/Flower3"]
+[node name="FlowerStalk3" type="Sprite2D" parent="RoomSpawn/Flower3"]
 texture_filter = 1
 position = Vector2(56, 184)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk4" type="Sprite2D" parent="Game/RoomSpawn/Flower3"]
+[node name="FlowerStalk4" type="Sprite2D" parent="RoomSpawn/Flower3"]
 texture_filter = 1
 position = Vector2(56, 200)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk5" type="Sprite2D" parent="Game/RoomSpawn/Flower3"]
+[node name="FlowerStalk5" type="Sprite2D" parent="RoomSpawn/Flower3"]
 texture_filter = 1
 position = Vector2(56, 232)
 texture = ExtResource("12_b2ar6")
 
-[node name="FlowerStalk6" type="Sprite2D" parent="Game/RoomSpawn/Flower3"]
+[node name="FlowerStalk6" type="Sprite2D" parent="RoomSpawn/Flower3"]
 texture_filter = 1
 position = Vector2(56, 216)
 texture = ExtResource("12_b2ar6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/RoomSpawn/Flower3"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomSpawn/Flower3"]
 libraries = {
 &"": SubResource("AnimationLibrary_b2ar6")
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Game/RoomSpawn/Flower3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="RoomSpawn/Flower3"]
 position = Vector2(56, 168)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/RoomSpawn/Flower3/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomSpawn/Flower3/StaticBody2D"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_gn8l5")
 one_way_collision = true
 
-[node name="Tree" parent="Game/RoomSpawn" instance=ExtResource("15_1fphk")]
+[node name="Tree" parent="RoomSpawn" instance=ExtResource("15_1fphk")]
 position = Vector2(184, 96)
 
-[node name="Tree2" parent="Game/RoomSpawn" instance=ExtResource("15_1fphk")]
-position = Vector2(560, 64)
+[node name="Tree2" parent="RoomSpawn" instance=ExtResource("15_1fphk")]
+position = Vector2(560, 48)
 
-[node name="Gourd" parent="Game/RoomSpawn" instance=ExtResource("16_sjtuv")]
-position = Vector2(448, 160)
-
-[node name="Gourd2" parent="Game/RoomSpawn" instance=ExtResource("16_sjtuv")]
-position = Vector2(512, 144)
-
-[node name="Camera2D" type="Camera2D" parent="Game" node_paths=PackedStringArray("player")]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
 position = Vector2(120, 108)
 script = ExtResource("16_6w02q")
 player = NodePath("../CharacterBody2D")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Game" groups=["animatedplants"]]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["animatedplants"]]
 texture_filter = 1
 position = Vector2(352, 200)
 sprite_frames = SubResource("SpriteFrames_5j71u")
-frame_progress = 0.337163
+frame_progress = 0.306301
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Game" groups=["animatedplants"]]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." groups=["animatedplants"]]
 texture_filter = 1
 position = Vector2(400, 200)
 sprite_frames = SubResource("SpriteFrames_5j71u")
-frame_progress = 0.959247
-
-[node name="Node2D2" parent="Game" instance=ExtResource("25_aj1ai")]
-position = Vector2(353, 400)
-
-[node name="Flower" parent="." instance=ExtResource("26_d7dfr")]
-position = Vector2(424, 424)
-
-[node name="Flower2" parent="." instance=ExtResource("26_d7dfr")]
-position = Vector2(520, 424)
-
-[connection signal="pressed" from="CanvasLayer2/TextureButton" to="." method="_on_texture_button_pressed"]
+frame_progress = 0.928403

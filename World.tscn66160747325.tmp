@@ -1,0 +1,592 @@
+[gd_scene load_steps=39 format=4 uid="uid://rttk28h3tgj6"]
+
+[ext_resource type="TileSet" uid="uid://xkuh6aff7h7c" path="res://tile_set.tres" id="1_c6gwx"]
+[ext_resource type="Material" uid="uid://y6hoaugtf64c" path="res://ShaderColorMaterial.tres" id="1_js7pq"]
+[ext_resource type="Script" uid="uid://djhelkkxxou0f" path="res://SeasonManager.gd" id="1_p1v5b"]
+[ext_resource type="Texture2D" uid="uid://cenprenufq70t" path="res://1-Bit Platformer Pack/Tilemap/monochrome_tilemap_transparent.png" id="2_2dftf"]
+[ext_resource type="Script" uid="uid://v5vehyr0lrox" path="res://Player.gd" id="2_bcbcq"]
+[ext_resource type="Texture2D" uid="uid://blh7rf4h6vudu" path="res://inventory.png" id="3_fv4w7"]
+[ext_resource type="FontFile" uid="uid://cc1qlx4wh4n8e" path="res://PeaberryMono.ttf" id="5_eu7l1"]
+[ext_resource type="Texture2D" uid="uid://bo6n8c4g0q1q3" path="res://tilemap.png" id="5_kva58"]
+[ext_resource type="Texture2D" uid="uid://clv6g5wwvupv4" path="res://tree-tileset.png" id="7_wygdx"]
+[ext_resource type="Script" uid="uid://djpmqlem7jjlf" path="res://Tree.gd" id="8_bah7m"]
+[ext_resource type="Texture2D" uid="uid://dig463fm0wpt6" path="res://water_tileset.png" id="8_ee7l0"]
+[ext_resource type="Script" uid="uid://qss15wbasg5q" path="res://Water.gd" id="9_gn8l5"]
+[ext_resource type="Texture2D" uid="uid://bc7cqvpxs3clq" path="res://flower_bud.png" id="11_f5c0m"]
+[ext_resource type="Texture2D" uid="uid://dfth6pbrh0i8g" path="res://flower_stalk.png" id="12_b2ar6"]
+[ext_resource type="Script" uid="uid://dhvh7o06vlbf" path="res://flower.gd" id="12_f5c0m"]
+[ext_resource type="Script" uid="uid://dg5dq88ex7j06" path="res://Camera.gd" id="16_6w02q"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gn8l5"]
+texture = ExtResource("8_ee7l0")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -1.79859, -8, -1.79859)
+
+[sub_resource type="TileSet" id="TileSet_6w02q"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_gn8l5")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dftf"]
+size = Vector2(15, 15)
+
+[sub_resource type="Animation" id="Animation_wygdx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_p1v5b"]
+resource_name = "die"
+length = 0.0833417
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_eu7l1"]
+resource_name = "fall"
+length = 0.0833417
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_js7pq"]
+resource_name = "idle"
+length = 0.0833417
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bcbcq"]
+resource_name = "run"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bah7m"]
+_data = {
+&"RESET": SubResource("Animation_wygdx"),
+&"die": SubResource("Animation_p1v5b"),
+&"fall": SubResource("Animation_eu7l1"),
+&"idle": SubResource("Animation_js7pq"),
+&"run": SubResource("Animation_bcbcq")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6w02q"]
+size = Vector2(240, 216)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fphk"]
+size = Vector2(240, 216)
+
+[sub_resource type="Animation" id="Animation_b2ar6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlowerBud:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_f5c0m"]
+resource_name = "bloom"
+length = 15.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlowerBud:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ee7l0"]
+resource_name = "die"
+length = 6.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlowerBud:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_gn8l5"]
+resource_name = "grow"
+length = 20.0
+step = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlowerBud:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 10, 15, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b2ar6"]
+_data = {
+&"RESET": SubResource("Animation_b2ar6"),
+&"bloom": SubResource("Animation_f5c0m"),
+&"die": SubResource("Animation_ee7l0"),
+&"grow": SubResource("Animation_gn8l5")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ee7l0"]
+size = Vector2(48, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2ar6"]
+size = Vector2(48, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gn8l5"]
+size = Vector2(48, 8)
+
+[sub_resource type="Curve" id="Curve_p1v5b"]
+_limits = [1.0, 2.0, 100.0, 250.0]
+bake_resolution = 3
+_data = [Vector2(100, 1.53933), 8.2271, 0.00307116, 0, 1, Vector2(250, 2), 0.00307116, 7.24906, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wygdx"]
+curve = SubResource("Curve_p1v5b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eu7l1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(200, 1, 1)
+direction = Vector3(0.225, 1, 0)
+spread = 5.0
+initial_velocity_min = 200.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 0, 0)
+scale_over_velocity_curve = SubResource("CurveTexture_wygdx")
+
+[node name="Node2D" type="Node2D" groups=["seasonmanager"]]
+process_priority = 1
+process_physics_priority = 1
+script = ExtResource("1_p1v5b")
+shader = ExtResource("1_js7pq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 72.0
+offset_right = 120.0
+offset_bottom = 32.0
+texture = ExtResource("3_fv4w7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/TextureRect"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 24.0
+theme_override_constants/separation = 8
+
+[node name="InventorySlot" type="TextureRect" parent="CanvasLayer/TextureRect/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("7_wygdx")
+expand_mode = 1
+
+[node name="InventorySlot2" type="TextureRect" parent="CanvasLayer/TextureRect/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("5_kva58")
+expand_mode = 1
+
+[node name="InventorySlot3" type="TextureRect" parent="CanvasLayer/TextureRect/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("5_kva58")
+expand_mode = 1
+
+[node name="RealTimeLabel" type="Label" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 160.0
+offset_right = 270.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("5_eu7l1")
+theme_override_font_sizes/font_size = 16
+text = "00:00:00"
+uppercase = true
+
+[node name="GameTimeLabel" type="Label" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 160.0
+offset_top = 16.0
+offset_right = 270.0
+offset_bottom = 39.0
+theme_override_fonts/font = ExtResource("5_eu7l1")
+theme_override_font_sizes/font_size = 16
+text = "00:00:00"
+uppercase = true
+
+[node name="Month" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -8.0
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 56.0
+rotation = 1.5708
+
+[node name="WinterLabel" type="Label" parent="CanvasLayer/Month"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 16.0
+offset_top = -8.0
+offset_right = 103.0
+offset_bottom = 15.0
+theme_override_fonts/font = ExtResource("5_eu7l1")
+theme_override_font_sizes/font_size = 16
+text = "WINTER"
+uppercase = true
+
+[node name="AutumnLabel" type="Label" parent="CanvasLayer/Month"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 95.0
+offset_bottom = 39.0
+rotation = 1.5708
+theme_override_fonts/font = ExtResource("5_eu7l1")
+theme_override_font_sizes/font_size = 16
+text = "AUTUMN"
+uppercase = true
+
+[node name="SpringLabel" type="Label" parent="CanvasLayer/Month"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 79.0
+offset_bottom = 7.0
+rotation = 4.71239
+theme_override_fonts/font = ExtResource("5_eu7l1")
+theme_override_font_sizes/font_size = 16
+text = "SPRING"
+uppercase = true
+
+[node name="SummerLabel" type="Label" parent="CanvasLayer/Month"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -16.0
+offset_top = 8.0
+offset_right = 71.0
+offset_bottom = 31.0
+rotation = 3.14159
+theme_override_fonts/font = ExtResource("5_eu7l1")
+theme_override_font_sizes/font_size = 16
+text = "SUMMER"
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("1_js7pq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_set = ExtResource("1_c6gwx")
+
+[node name="Water" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAANAAsAAAABAAAAAAAOAAsAAAABAAAAAAAKAAsAAAABAAAAAAAJAAsAAAABAAAAAAA=")
+tile_set = SubResource("TileSet_6w02q")
+script = ExtResource("9_gn8l5")
+
+[node name="Foreground" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAAAAoAAAAJAAYAAAABAAoAAAALAAUAAAAIAAsAAAAMAAUAAAALAAsAAAAKAAUAAAAMAAsAAAALAAUAAAAAAAkAAAAJAAUAAAAAAAgAAAAJAAUAAAAAAAcAAAAJAAUAAAAAAAYAAAAJAAUAAAAHAAsAAAAJAAYAAAADAAoAAAALAAUAAAACAAoAAAALAAUAAAAEAAoAAAALAAUAAAAHAAoAAAAJAAQAAAAAAAUAAAAJAAQAAAANAAsAAAALAAUAAAAOAAsAAAALAAUAAAAGAAkAAAAJAAQAAAAFAAkAAAAHAAQAAAAFAAoAAAAHAAUAAAAFAAsAAAAHAAYAAAAGAAsAAAAIAAYAAAAGAAoAAAAIAAUAAAAIAAwAAAAMAAYAAAAJAA0AAAALAAUAAAAKAAwAAAAKAAUAAAAPAAsAAAALAAUAAAAQAAsAAAALAAUAAAARAAsAAAALAAUAAAASAAsAAAALAAUAAAATAAsAAAALAAUAAAAUAAsAAAALAAUAAAAVAAsAAAALAAUAAAAWAAsAAAALAAUAAAAXAAsAAAALAAUAAAAYAAsAAAALAAUAAAAZAAsAAAALAAUAAAAaAAsAAAALAAUAAAAbAAsAAAALAAUAAAAcAAsAAAALAAUAAAAdAAsAAAALAAUAAAA=")
+tile_set = ExtResource("1_c6gwx")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+process_priority = -1
+process_physics_priority = -1
+position = Vector2(120, 152)
+script = ExtResource("2_bcbcq")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture_filter = 1
+texture = ExtResource("2_2dftf")
+hframes = 7
+region_enabled = true
+region_rect = Rect2(0, 255, 118, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_2dftf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_bah7m")
+}
+
+[node name="Room2" type="Node2D" parent="."]
+position = Vector2(240, 0)
+
+[node name="Area2D" type="Area2D" parent="Room2" groups=["level_area"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room2/Area2D"]
+position = Vector2(120, 108)
+shape = SubResource("RectangleShape2D_6w02q")
+
+[node name="Room1" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Room1" groups=["level_area"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room1/Area2D"]
+position = Vector2(120, 108)
+shape = SubResource("RectangleShape2D_1fphk")
+
+[node name="Flower" type="Node2D" parent="Room1" groups=["flower"]]
+script = ExtResource("12_f5c0m")
+
+[node name="FlowerBud" type="Sprite2D" parent="Room1/Flower"]
+texture_filter = 1
+position = Vector2(56, 128)
+texture = ExtResource("11_f5c0m")
+hframes = 7
+vframes = 2
+
+[node name="FlowerStalk" type="Sprite2D" parent="Room1/Flower"]
+texture_filter = 1
+position = Vector2(56, 152)
+texture = ExtResource("12_b2ar6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Room1/Flower"]
+libraries = {
+&"": SubResource("AnimationLibrary_b2ar6")
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Room1/Flower"]
+position = Vector2(56, 136)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room1/Flower/StaticBody2D"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_ee7l0")
+one_way_collision = true
+
+[node name="Flower2" type="Node2D" parent="Room1" groups=["flower"]]
+position = Vector2(24, -32)
+script = ExtResource("12_f5c0m")
+
+[node name="FlowerBud" type="Sprite2D" parent="Room1/Flower2"]
+texture_filter = 1
+position = Vector2(56, 144)
+texture = ExtResource("11_f5c0m")
+hframes = 7
+vframes = 2
+
+[node name="FlowerStalk2" type="Sprite2D" parent="Room1/Flower2"]
+texture_filter = 1
+position = Vector2(56, 168)
+texture = ExtResource("12_b2ar6")
+
+[node name="FlowerStalk3" type="Sprite2D" parent="Room1/Flower2"]
+texture_filter = 1
+position = Vector2(56, 184)
+texture = ExtResource("12_b2ar6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Room1/Flower2"]
+libraries = {
+&"": SubResource("AnimationLibrary_b2ar6")
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Room1/Flower2"]
+position = Vector2(56, 152)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room1/Flower2/StaticBody2D"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_b2ar6")
+one_way_collision = true
+
+[node name="Flower3" type="Node2D" parent="Room1" groups=["flower"]]
+position = Vector2(-16, -80)
+script = ExtResource("12_f5c0m")
+
+[node name="FlowerBud" type="Sprite2D" parent="Room1/Flower3"]
+texture_filter = 1
+position = Vector2(56, 160)
+texture = ExtResource("11_f5c0m")
+hframes = 7
+vframes = 2
+
+[node name="FlowerStalk3" type="Sprite2D" parent="Room1/Flower3"]
+texture_filter = 1
+position = Vector2(56, 184)
+texture = ExtResource("12_b2ar6")
+
+[node name="FlowerStalk4" type="Sprite2D" parent="Room1/Flower3"]
+texture_filter = 1
+position = Vector2(56, 200)
+texture = ExtResource("12_b2ar6")
+
+[node name="FlowerStalk5" type="Sprite2D" parent="Room1/Flower3"]
+texture_filter = 1
+position = Vector2(56, 232)
+texture = ExtResource("12_b2ar6")
+
+[node name="FlowerStalk6" type="Sprite2D" parent="Room1/Flower3"]
+texture_filter = 1
+position = Vector2(56, 216)
+texture = ExtResource("12_b2ar6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Room1/Flower3"]
+libraries = {
+&"": SubResource("AnimationLibrary_b2ar6")
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Room1/Flower3"]
+position = Vector2(56, 168)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room1/Flower3/StaticBody2D"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_gn8l5")
+one_way_collision = true
+
+[node name="Tree" type="Sprite2D" parent="Room1" groups=["tree"]]
+texture_filter = 1
+position = Vector2(192, 128)
+texture = ExtResource("7_wygdx")
+hframes = 3
+script = ExtResource("8_bah7m")
+
+[node name="SnowParticles" type="GPUParticles2D" parent="Room1" groups=["snow_particles"]]
+position = Vector2(120, 0)
+amount = 200
+amount_ratio = 0.0
+lifetime = 3.0
+preprocess = 3.0
+randomness = 0.1
+process_material = SubResource("ParticleProcessMaterial_eu7l1")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(168, 144)
+script = ExtResource("16_6w02q")
+player = NodePath("../CharacterBody2D")
+tween_duration = null
+tween_ease_strength = null
