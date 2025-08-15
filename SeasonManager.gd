@@ -161,6 +161,9 @@ func set_winter(progress: float) -> void:
 
 func set_spring(progress: float) -> void:
 	get_node("Game/Water").ice = false
+	for plant in get_tree().get_nodes_in_group("tinyplant"):
+		plant.grow = min(plant.grow + randf_range(0, 0.02), 1)
+		plant.material.set_shader_parameter("grow", plant.grow)
 	for snow_particles in get_tree().get_nodes_in_group("snow_particles"):
 		snow_particles.amount_ratio = 0
 	for rain_particles in get_tree().get_nodes_in_group("rain_particles"):
@@ -186,6 +189,9 @@ func set_summer(progress: float) -> void:
 		flower.set_summer()
 
 func set_autumn(progress: float) -> void:
+	for plant in get_tree().get_nodes_in_group("tinyplant"):
+		plant.grow = max(plant.grow - randf_range(0, 0.005 * Engine.time_scale), 0)
+		plant.material.set_shader_parameter("grow", plant.grow)
 	get_node("Game/Water").ice = false
 	for snow_particles in get_tree().get_nodes_in_group("snow_particles"):
 		snow_particles.amount_ratio = 0

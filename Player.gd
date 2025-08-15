@@ -9,6 +9,7 @@ var last_time_scale: float = 1.0
 var can_move: bool = true
 var facing_right: bool = true
 var has_jump_boots: bool = false
+@export var grass_mat: ShaderMaterial
 
 func killed_by(death) -> void:
 	if death == "pumpkin":

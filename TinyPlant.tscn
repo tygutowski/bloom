@@ -1,0 +1,17 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5m7hhf01y817"]
+
+[ext_resource type="Script" uid="uid://c0646lbrv0u2h" path="res://TinyPlant.gd" id="1_34qwm"]
+[ext_resource type="Material" uid="uid://jhixx07lk2aw" path="res://TinyPlantMaterial.tres" id="1_m6cnv"]
+[ext_resource type="Texture2D" uid="uid://b8rgn0aaba8vr" path="res://square.png" id="1_xlu7r"]
+[ext_resource type="Texture2D" uid="uid://b6dbj364raifl" path="res://grass1.png" id="2_xlu7r"]
+[ext_resource type="Texture2D" uid="uid://bk46pa0atouud" path="res://grass2.png" id="3_m6cnv"]
+[ext_resource type="Texture2D" uid="uid://8kfe5tgt1mxf" path="res://grass3.png" id="4_ilpv5"]
+[ext_resource type="Texture2D" uid="uid://cf3imgkwfob38" path="res://flower1.png" id="5_f4h0p"]
+
+[node name="Sprite2D" type="Sprite2D" groups=["tinyplant"]]
+texture_filter = 1
+material = ExtResource("1_m6cnv")
+texture = ExtResource("1_xlu7r")
+centered = false
+script = ExtResource("1_34qwm")
+plants = Array[Texture]([ExtResource("2_xlu7r"), ExtResource("3_m6cnv"), ExtResource("4_ilpv5"), ExtResource("5_f4h0p")])

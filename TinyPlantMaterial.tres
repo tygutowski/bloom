@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://jhixx07lk2aw"]
+
+[ext_resource type="Shader" uid="uid://d0qc0qe1uufry" path="res://wind_shader.gdshader" id="1_b81gk"]
+
+[resource]
+shader = ExtResource("1_b81gk")
+shader_parameter/player_pos = Vector2(0, 0)
+shader_parameter/player_dir = 0.0
+shader_parameter/grow = 1.0
+shader_parameter/instance_pos = Vector2(0, 0)
+shader_parameter/player_radius = 16.0
+shader_parameter/player_push = 3.0
+shader_parameter/wind_strength = 0.0
+shader_parameter/wind_hz = 1.2
+shader_parameter/tip_bias = 2.0
+shader_parameter/wobble_jitter = 0.5

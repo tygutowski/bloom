@@ -31,6 +31,8 @@ level_area=""
 animatedplants=""
 rain_particles=""
 gourd=""
+player=""
+tinyplant=""
 
 [input]
 
