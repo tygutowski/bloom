@@ -9,8 +9,10 @@ var last_time_scale: float = 1.0
 var can_move: bool = true
 var facing_right: bool = true
 var has_jump_boots: bool = false
+var has_hover: bool = false
 @export var grass_mat: ShaderMaterial
-
+var jumped_already: bool = true
+var float_timer: float = 0
 func killed_by(death) -> void:
 	if death == "pumpkin":
 		print("Death by pumpkin")
@@ -18,6 +20,11 @@ func killed_by(death) -> void:
 func get_jump_boots() -> void:
 	has_jump_boots = true
 	$"../../CanvasLayer/TextureRect/HBoxContainer/JumpBoots".visible = true
+
+func get_hover() -> void:
+	has_hover = true
+	$"../../CanvasLayer/TextureRect/HBoxContainer/InventorySlot2".visible = true
+
 
 func _ready() -> void:
 	$"../../CanvasLayer/TextureRect/HBoxContainer/JumpBoots".visible = false
@@ -30,17 +37,31 @@ func _physics_process(delta: float) -> void:
 
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	if is_on_floor():
+		jumped_already = false
+		if has_hover:
+			float_timer = 1.0
+
+	if Input.is_action_pressed("jump") and not is_on_floor():
+		print("float")
+		if jumped_already: 
+			print("a")
+			if float_timer > 0:
+				float_timer -= delta
+				if velocity.y >= 0:
+					velocity.y = 0
 
 	if skipping:
 		direction = 0.0
 	else:
 		direction = Input.get_axis("left", "right")
-		if Input.is_action_just_pressed("jump") and is_on_floor():
+		if not jumped_already and Input.is_action_just_pressed("jump") and is_on_floor():
+			jumped_already = true
 			if has_jump_boots:
 				velocity.y = JUMP_BOOTS_VELOCITY
 			else:
 				velocity.y = JUMP_VELOCITY
-
+			
 	if direction == -1:
 		facing_right = true
 	elif direction == 1:
